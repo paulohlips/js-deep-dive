@@ -15,10 +15,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "chai": "^4.3.7",
-    "faker": "^6.6.6",
     "mocha": "^8.4.0",
     "nyc": "^15.1.0",
     "sinon": "^9.2.4"
+  },
+  "dependencies": {
+    "faker": "^5.5.3"
   }
 }

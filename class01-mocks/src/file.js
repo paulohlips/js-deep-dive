@@ -10,6 +10,7 @@ class File {
     const content = await readFile(filePath, "utf8")
     const validation = this.isValid(content)
     if(!validation.valid) throw new Error(validation.error)
+    return this.parseCSVToJSON(content)
   }
 
   static isValid(csvString, options = DEFAULT_OPTION) {
@@ -30,6 +31,30 @@ class File {
         valid: false
       }
     }
+
+    return {
+      error: null,
+      valid: true
+    }
+  }
+
+  static parseCSVToJSON(csvString) {
+    const lines = csvString.split(/\r?\n/)
+    //get header items
+    const header = lines.shift().split(",")
+
+    const users = lines.map(line => {
+      const columns = line.split(",")
+      let user = {}
+
+      for (const index in columns) {
+        user[header[index]] = columns[index].trim()
+      }
+
+      return user
+    })
+
+    return users
   }
 }
 

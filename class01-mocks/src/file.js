@@ -23,14 +23,13 @@ class File {
       }
     }
 
-    if (!fileWithOutHeaders.length) {
+    if (!fileWithOutHeaders.length ||
+      fileWithOutHeaders.length > options.maxLines) {
       return {
         error: errors.FILE_LENGTH_ERROR_MESSAGE,
         valid: false
       }
     }
-
-
   }
 }
 

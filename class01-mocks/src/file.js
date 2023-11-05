@@ -13,13 +13,24 @@ class File {
   }
 
   static isValid(csvString, options = DEFAULT_OPTION) {
-    const [headers, ...fileWithOutHeaders] = csvString.split(/\r?\n/)
-    if (!fileWithOutHeaders.filePath) {
+    const [header, ...fileWithOutHeaders] = csvString.split(/\r?\n/)
+
+    const isValidHeader = header === options.fields.join(",")
+    if (!isValidHeader) {
+      return {
+        error: errors.FILE_COLUMNS_ERROR_MESSAGE,
+        valid: false
+      }
+    }
+
+    if (!fileWithOutHeaders.length) {
       return {
         error: errors.FILE_LENGTH_ERROR_MESSAGE,
         valid: false
       }
     }
+
+
   }
 }
 

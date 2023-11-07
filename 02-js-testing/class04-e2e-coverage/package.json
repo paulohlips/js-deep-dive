@@ -1,0 +1,12 @@
+{
+  "name": "class04-e2e-coverage",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": "18"
+  },
+  "scripts": {
+    "test": "node src/api.js"
+  }
+}

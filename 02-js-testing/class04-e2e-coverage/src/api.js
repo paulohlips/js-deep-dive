@@ -27,6 +27,7 @@ const routes = {
   },
   default: (request, response) => {
     response.writeHead(404)
+    response.write('page not found')
     return response.end()
   }
 }

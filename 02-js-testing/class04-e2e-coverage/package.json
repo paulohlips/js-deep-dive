@@ -7,6 +7,14 @@
     "node": "18"
   },
   "scripts": {
-    "test": "node src/api.js"
+    "start": "node src/api.js",
+    "test:dev": "npx mocha -w src/*test.js",
+    "test": "npx mocha -w src/*test.js",
+    "test:cov": "npx nyc npx mocha src/*test.js"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "supertest": "^6.3.3"
   }
 }

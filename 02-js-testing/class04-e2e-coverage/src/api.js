@@ -21,6 +21,8 @@ const routes = {
       response.write('login failed')
       return response.end()
     }
+    response.writeHead(200)
+    response.write('login succeed')
     return response.end()
   },
   default: (request, response) => {
@@ -40,3 +42,5 @@ function handler(request, response) {
 
 const app = http.createServer(handler).
 listen(3000, () => console.log("running on port 3000"))
+
+module.exports = app

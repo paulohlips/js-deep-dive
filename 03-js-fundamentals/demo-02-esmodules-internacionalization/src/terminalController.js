@@ -44,4 +44,8 @@ export default class TerminalController {
       ]
     }
   }
+
+  closeTerminal() {
+    this.terminal.close()
+}
 }

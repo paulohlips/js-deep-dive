@@ -1,9 +1,10 @@
 import chalk from "chalk"
 import chalkTable from "chalk-table"
-import Draflog from "draftlog"
+import DraftLog from "draftlog"
 import database from "../src/database.json" assert { type: "json" }
+import Person from "./person.js"
 
-Draflog(console).addLineListener(process.stdin)
+DraftLog(console).addLineListener(process.stdin)
 
 const options = {
   leftPad: 2,
@@ -16,5 +17,5 @@ const options = {
   ]
 }
 
-const table = chalkTable(options, database)
+const table = chalkTable(options, database.map(item => new Person(item).formatted("pt-BR")))
 const print = console.draft(table)

@@ -4,11 +4,15 @@ export default class Person {
     this.vehicles = vehicles
     this.kmTraveled = kmTraveled
     this.from = from
-    this.id = id
+    this.to = to
   }
 
   formatted(language) {
-
+    const mapDate = (date) => {
+      console.log(date)
+      const [year, month, day] = date.split("-").map(Number)
+      return new Date(year, (month -1), day)
+    }
     return {
       id: Number(this.id),
       vehicles: new Intl
@@ -19,10 +23,24 @@ export default class Person {
         .format(this.kmTraveled),
       from: new Intl
         .DateTimeFormat(language, { month: "long", day: "2-digit", year: "numeric" })
-        .format(),
+        .format(mapDate(this.from)),
       to: new Intl
         .DateTimeFormat(language, { month: "long", day: "2-digit", year: "numeric" })
-        .format()
+        .format(mapDate(this.to))
     }
+  }
+
+  static staticGeneratePersonInstanceFromString(text) {
+    const EMPTY_SPACE = " "
+    const [id, vehicles, kmTraveled, from, to] = text.split(EMPTY_SPACE)
+    const person = new Person({
+      id,
+      kmTraveled,
+      from,
+      to,
+      vehicles: vehicles.split(",")
+    })
+
+    return person
   }
 }

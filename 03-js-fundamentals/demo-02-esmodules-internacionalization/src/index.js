@@ -1,21 +1,27 @@
-import chalk from "chalk"
-import chalkTable from "chalk-table"
-import DraftLog from "draftlog"
 import database from "../src/database.json" assert { type: "json" }
+import TerminalController from "./terminalController.js"
 import Person from "./person.js"
 
-DraftLog(console).addLineListener(process.stdin)
+const DEFAULT_LANGUAGE = "pt-BR"
+const STOP_TERM = ":q"
+const terminalController = new TerminalController()
+terminalController.initializeTerminal(database, DEFAULT_LANGUAGE)
 
-const options = {
-  leftPad: 2,
-  columns: [
-    { field: "id", name: chalk.cyan("ID")},
-    { field: "vehicles", name: chalk.cyan("Vehicles")},
-    { field: "kmTraveled", name: chalk.cyan("Km Traveled")},
-    { field: "from", name: chalk.cyan("From")},
-    { field: "to", name: chalk.cyan("To")},
-  ]
+async function mainLoop() {
+  try {
+    const answer = await terminalController.question()
+    if(answer === STOP_TERM) {
+      terminalController.closeTerminal()
+      console.log("process finished")
+      return
+    }
+    const person = Person.staticGeneratePersonInstanceFromString(answer)
+    console.log('answer', person)
+    return mainLoop()
+  } catch (error) {
+    console.log({ error })
+    return mainLoop()
+  }
 }
 
-const table = chalkTable(options, database.map(item => new Person(item).formatted("pt-BR")))
-const print = console.draft(table)
+await mainLoop()

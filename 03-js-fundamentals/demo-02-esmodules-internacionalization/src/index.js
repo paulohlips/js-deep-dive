@@ -16,7 +16,7 @@ async function mainLoop() {
       return
     }
     const person = Person.staticGeneratePersonInstanceFromString(answer)
-    console.log('answer', person)
+    terminalController.updateTable(person.formatted(DEFAULT_LANGUAGE))
     return mainLoop()
   } catch (error) {
     console.log({ error })

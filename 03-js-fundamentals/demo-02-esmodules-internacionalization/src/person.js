@@ -9,7 +9,6 @@ export default class Person {
 
   formatted(language) {
     const mapDate = (date) => {
-      console.log(date)
       const [year, month, day] = date.split("-").map(Number)
       return new Date(year, (month -1), day)
     }
